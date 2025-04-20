@@ -1,0 +1,18 @@
+
+CREATE TABLE category (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL UNIQUE
+);
+
+
+CREATE TABLE menu (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    description TEXT NOT NULL,
+    price DOUBLE PRECISION NOT NULL,
+    image VARCHAR NOT NULL,
+    calorie INTEGER NOT NULL,
+    category_id INTEGER REFERENCES category(id) ON DELETE SET NULL,
+    lat DOUBLE PRECISION NOT NULL,
+    lng DOUBLE PRECISION NOT NULL
+);

@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    container_name: cheko-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/cheko
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+      spring.datasource.driver-class-name: org.postgresql.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+    networks:
+      - cheko-network
+
+  db:
+    image: postgres:15
+    container_name: cheko-postgres
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: cheko
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - cheko-network
+
+networks:
+  cheko-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
