@@ -1,0 +1,20 @@
+databaseType = "PostgreSql"
+id = "bfb0d8e1-9de1-4f42-96a9-bc68a0a06d4f"
+name = "Cheko"
+locations = [ "filesystem:db/migration" ]
+
+[flyway]
+locations = [ "filesystem:migrations" ]
+mixed = true
+outOfOrder = true
+schemaModelLocation = "schema-model"
+validateMigrationNaming = true
+
+[flyway.check]
+majorTolerance = 0
+
+[environments.local]
+url = "${SPRING_DATASOURCE_URL}"
+user = "${SPRING_DATASOURCE_USERNAME}"
+password = "${SPRING_DATASOURCE_PASSWORD}"
+schemas = [ "public" ]
