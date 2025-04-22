@@ -105,7 +105,9 @@ cheko-backend/
 
 1. **📍 Restaurants**
 
+```
 GET /api/restaurants
+```
 Returns all restaurant markers with location and logo.
 
 ```
@@ -115,12 +117,22 @@ Returns all restaurant markers with location and logo.
     "name": "Kitchen Cafe",
     "latitude": 24.7136,
     "longitude": 46.6753,
-    "logoUrl": "https://example.com/logo.png"
+    "logoUrl": "https://example.com/logo1.png"
+  },
+  {
+    "id": 2,
+    "name": "Sushi Spot",
+    "latitude": 24.7215,
+    "longitude": 46.6890,
+    "logoUrl": "https://example.com/logo2.png"
   }
 ]
+
 ```
 
+```
 GET /api/restaurants/{id}
+```
 Returns a specific restaurant by ID.
 
 ```
@@ -137,8 +149,11 @@ Returns a specific restaurant by ID.
 
 2. **🍽️ Menu**
 
+```
 POST /api/menu
+```
 Returns menu items by optional filters like category or restaurant.
+🥞 Default Behavior: If no filters are applied, returns Breakfast category and its menu items.
 
 ```
 [
@@ -155,7 +170,9 @@ Returns menu items by optional filters like category or restaurant.
 ]
 ```
 
+```
 GET /api/menu/{id}
+```
 Returns a specific menu item by ID
 
 ```
@@ -175,7 +192,9 @@ Returns a specific menu item by ID
 
 3. **📂 Categories**
 
+```
 GET /api/categories
+```
 Returns all available menu categories.
 
 ```
