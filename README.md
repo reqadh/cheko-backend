@@ -30,7 +30,6 @@ Cheko is a full-stack restaurant system backend built with Spring Boot and Postg
 - 🧾 Menu Filtering by Category
 - 📍 Restaurant Location with Map Data
 - 📦 PostgreSQL + Flyway for DB management
-- 🌐 RESTful API structure
 - 🐳 Dockerized deployment
 
 ---
@@ -46,26 +45,39 @@ Cheko is a full-stack restaurant system backend built with Spring Boot and Postg
 
 ## 🚦 Getting Started
 
-```bash
-# Clone the repo
-git clone https://github.com/your-org/cheko-backend.git
-cd cheko-backend
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/your-org/cheko-backend.git
+   cd cheko-backend
+   ```
 
-# Build the project
-mvn clean install
+2. **Configure Database**
+   ```bash
+   # Create PostgreSQL database
+   createdb cheko
+   
+   # Configure application.properties (if needed)
+   vim src/main/resources/application.properties
+   ```
+3. **Build and Run**
+   ```bash
+   # Build with Maven
+   mvn clean install
+   
+   # Run the application
+   mvn spring-boot:run
+   ```
 
-# Run with Spring Boot
-mvn spring-boot:run
+### 🔌 Docker Setup
+ 
+1. **Build Docker Image and Run Container**
+   ```bash
+   docker compose up --build
+   ```
 
----
+## 📁 Project Structure
 
-## 🔌 Docker Setup
-
-# Build and start containers
-docker compose up --build
-
-📁 Project Structure
-
+```
 cheko-backend/
 ├── src/
 │   ├── main/
@@ -79,14 +91,24 @@ cheko-backend/
 ├── Dockerfile
 ├── docker-compose.yml
 └── README.md
+```
 
-🔌 API Endpoints
+### 📊 Database Design
 
-📍 Restaurants
+#### Key Tables
+
+1. `restaurants`: Stores restaurant details
+2. `categories`: Represents menu categories
+3. `menu`: Items for each category
+
+## 🔌 API Endpoints
+
+1. **📍 Restaurants**
 
 GET /api/restaurants
 Returns all restaurant markers with location and logo.
 
+```
 [
   {
     "id": 1,
@@ -96,23 +118,29 @@ Returns all restaurant markers with location and logo.
     "logoUrl": "https://example.com/logo.png"
   }
 ]
+```
 
 GET /api/restaurants/{id}
 Returns a specific restaurant by ID.
 
-{
+```
+[
+  {
   "id": 1,
   "name": "Kitchen Cafe",
   "latitude": 24.7136,
   "longitude": 46.6753,
   "logoUrl": "https://example.com/logo.png"
-}
+  }
+]
+```
 
-🍽️ Menu
+2. **🍽️ Menu**
 
 POST /api/menu
 Returns menu items by optional filters like category or restaurant.
 
+```
 [
   {
     "id": 6,
@@ -125,11 +153,14 @@ Returns menu items by optional filters like category or restaurant.
     "categoryName": "Drinks"
   }
 ]
+```
 
 GET /api/menu/{id}
 Returns a specific menu item by ID
 
-{
+```
+[
+    {
   "id": 6,
   "name": "Fresh Orange Juice",
   "imageUrl": "https://www.mortons.ie/wp-content/uploads/2024/03/20230627-4E6A0689.jpg",
@@ -138,13 +169,16 @@ Returns a specific menu item by ID
   "price": 18.5,
   "categoryId": 2,
   "categoryName": "Drinks"
-}
+   }
+]
+```
 
-📂 Categories
+3. **📂 Categories**
 
 GET /api/categories
 Returns all available menu categories.
 
+```
 [
   {
     "id": 1,
@@ -155,5 +189,5 @@ Returns all available menu categories.
     "name": "Drinks"
   }
 ]
-
+```
 
