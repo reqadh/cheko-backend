@@ -75,6 +75,8 @@ Cheko is a restaurant system built with Spring Boot and PostgreSQL. It powers fe
    docker compose up --build
    ```
 
+---
+
 ## 📁 Project Structure
 
 ```
@@ -92,6 +94,8 @@ cheko-backend/
 ├── docker-compose.yml
 └── README.md
 ```
+---
+
 ### 🛠 Technical Components
 
 #### . Common Utilities (`common/`)
@@ -99,12 +103,15 @@ cheko-backend/
 - `ChekoApiResponse`: Standardized API responses
 - `GlobalExceptionHandler`: Centralized error handling
 
+---
+
 ### 🔄 Build and Deployment
 
 - Maven-based build system
 - Docker support
 - Environment-specific configurations
 
+---
 
 ### 📊 Database Design
 
@@ -113,6 +120,8 @@ cheko-backend/
 1. `restaurants`: Stores restaurant details
 2. `categories`: Represents menu categories
 3. `menu`: Items for each category
+
+---
 
 ## 🔌 API Endpoints
 
