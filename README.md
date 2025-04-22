@@ -1,6 +1,6 @@
 # 🍽️ Cheko Backend
 
-Cheko is a full-stack restaurant system backend built with Spring Boot and PostgreSQL. It powers features like categorized menus, restaurant mapping, and real-time filtering—designed for a modern dining experience.
+Cheko is a restaurant system built with Spring Boot and PostgreSQL. It powers features like categorized menus, restaurant mapping, and real-time filtering—designed for a modern dining experience.
 
 <div align="center">
 
@@ -30,7 +30,7 @@ Cheko is a full-stack restaurant system backend built with Spring Boot and Postg
 - 🧾 Menu Filtering by Category
 - 📍 Restaurant Location with Map Data
 - 📦 PostgreSQL + Flyway for DB management
-- 🐳 Dockerized deployment
+
 
 ---
 
@@ -62,7 +62,7 @@ Cheko is a full-stack restaurant system backend built with Spring Boot and Postg
 3. **Build and Run**
    ```bash
    # Build with Maven
-   mvn clean install
+   mvn clean install Or ./mvnw clean package -DskipTests
    
    # Run the application
    mvn spring-boot:run
@@ -92,6 +92,19 @@ cheko-backend/
 ├── docker-compose.yml
 └── README.md
 ```
+### 🛠 Technical Components
+
+#### . Common Utilities (`common/`)
+
+- `ChekoApiResponse`: Standardized API responses
+- `GlobalExceptionHandler`: Centralized error handling
+
+### 🔄 Build and Deployment
+
+- Maven-based build system
+- Docker support
+- Environment-specific configurations
+
 
 ### 📊 Database Design
 
@@ -111,24 +124,29 @@ GET /api/restaurants
 Returns all restaurant markers with location and logo.
 
 ```
-[
-  {
-    "id": 1,
-    "name": "Kitchen Cafe",
-    "latitude": 24.7136,
-    "longitude": 46.6753,
-    "logoUrl": "https://example.com/logo1.png"
-  },
-  {
-    "id": 2,
-    "name": "Sushi Spot",
-    "latitude": 24.7215,
-    "longitude": 46.6890,
-    "logoUrl": "https://example.com/logo2.png"
-  }
-]
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "Kitchen Cafe",
+      "latitude": 24.7136,
+      "longitude": 46.6753,
+      "logoUrl": "https://example.com/logos/kitchen-cafe.png"
+    },
+    {
+      "id": 2,
+      "name": "Sushi Spot",
+      "latitude": 24.7215,
+      "longitude": 46.6890,
+      "logoUrl": "https://example.com/logos/sushi-spot.png"
+    }
+  ]
+}
+
 
 ```
+
 
 ```
 GET /api/restaurants/{id}
@@ -136,15 +154,17 @@ GET /api/restaurants/{id}
 Returns a specific restaurant by ID.
 
 ```
-[
-  {
-  "id": 1,
-  "name": "Kitchen Cafe",
-  "latitude": 24.7136,
-  "longitude": 46.6753,
-  "logoUrl": "https://example.com/logo.png"
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "name": "Kitchen Cafe",
+    "latitude": 24.7136,
+    "longitude": 46.6753,
+    "logoUrl": "https://example.com/logos/kitchen-cafe.png"
   }
-]
+}
+
 ```
 
 2. **🍽️ Menu**
@@ -152,23 +172,39 @@ Returns a specific restaurant by ID.
 ```
 POST /api/menu
 ```
-Returns menu items by optional filters like category or restaurant.
-🥞 Default Behavior: If no filters are applied, returns Breakfast category and its menu items.
+Returns menu items by optional filters like category or restaurant. Default Behavior: If no filters are applied, returns Breakfast category and its menu items.
 
 ```
-[
-  {
-    "id": 6,
-    "name": "Fresh Orange Juice",
-    "imageUrl": "https://www.mortons.ie/wp-content/uploads/2024/03/20230627-4E6A0689.jpg",
-    "description": "Freshly squeezed oranges for a vibrant and refreshing taste.",
-    "calories": 110,
-    "price": 18.5,
-    "categoryId": 2,
-    "categoryName": "Drinks"
-  }
-]
+{
+  "success": true,
+  "data": [
+    {
+      "id": 45,
+      "name": "Avocado Toast",
+      "imageUrl": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0",
+      "description": "Toasted bread topped with smashed avocado and chili flakes.",
+      "calories": 380,
+      "price": 26.00,
+      "categoryId": 1,
+      "categoryName": "Breakfast",
+      "bestSale": false
+    },
+    {
+      "id": 46,
+      "name": "Foul Medames",
+      "imageUrl": "https://example.com/images/foul-medames.jpg",
+      "description": "Mashed fava beans with olive oil and spices.",
+      "calories": 320,
+      "price": 16.50,
+      "categoryId": 1,
+      "categoryName": "Breakfast",
+      "bestSale": true
+    }
+  ]
+}
+
 ```
+
 
 ```
 GET /api/menu/{id}
@@ -176,18 +212,21 @@ GET /api/menu/{id}
 Returns a specific menu item by ID
 
 ```
-[
-    {
-  "id": 6,
-  "name": "Fresh Orange Juice",
-  "imageUrl": "https://www.mortons.ie/wp-content/uploads/2024/03/20230627-4E6A0689.jpg",
-  "description": "Freshly squeezed oranges for a vibrant and refreshing taste.",
-  "calories": 110,
-  "price": 18.5,
-  "categoryId": 2,
-  "categoryName": "Drinks"
-   }
-]
+{
+  "success": true,
+  "data": {
+    "id": 6,
+    "name": "Fresh Orange Juice",
+    "imageUrl": "https://www.mortons.ie/wp-content/uploads/2024/03/20230627-4E6A0689.jpg",
+    "description": "Freshly squeezed oranges for a vibrant and refreshing taste.",
+    "calories": 110,
+    "price": 18.5,
+    "categoryId": 2,
+    "categoryName": "Drinks",
+    "bestSale": false
+  }
+}
+
 ```
 
 3. **📂 Categories**
@@ -198,15 +237,29 @@ GET /api/categories
 Returns all available menu categories.
 
 ```
-[
-  {
-    "id": 1,
-    "name": "Breakfast"
-  },
-  {
-    "id": 2,
-    "name": "Drinks"
-  }
-]
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "Breakfast",
+      "logoUrl": "https://i.top4top.io/p/3399qfzzf5.png",
+      "itemCount": 9
+    },
+    {
+      "id": 2,
+      "name": "Drinks",
+      "logoUrl": "https://k.top4top.io/p/33994x1x84.png",
+      "itemCount": 9
+    },
+    {
+      "id": 3,
+      "name": "Sushi",
+      "logoUrl": "https://example.com/images/sushi.png",
+      "itemCount": 5
+    }
+  ]
+}
+
 ```
 

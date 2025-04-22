@@ -18,4 +18,10 @@ public class Category {
 
     @Column(nullable = false, unique = true)
     private String name;
+
+    @Column(name = "logo_url")
+    private String logoUrl;
+
+    @Column(name = "item_count")
+    private Integer itemCount = 0;
 }

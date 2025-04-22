@@ -15,6 +15,8 @@ public class MenuItemMapper {
                 .price(item.getPrice())
                 .categoryId(item.getCategory().getId())
                 .categoryName(item.getCategory().getName())
+                .bestSale(item.getBestSale())
                 .build();
     }
+
 }

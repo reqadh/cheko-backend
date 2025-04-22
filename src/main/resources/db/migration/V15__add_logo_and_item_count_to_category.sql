@@ -1,0 +1,7 @@
+
+ALTER TABLE category
+ADD COLUMN logo_url TEXT;
+
+
+ALTER TABLE category
+ADD COLUMN item_count INTEGER DEFAULT 0;

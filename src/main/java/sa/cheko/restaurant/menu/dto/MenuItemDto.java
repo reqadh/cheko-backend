@@ -16,4 +16,5 @@ public class MenuItemDto {
     private double price;
     private Integer categoryId;
     private String categoryName;
+    private Boolean bestSale;
 }

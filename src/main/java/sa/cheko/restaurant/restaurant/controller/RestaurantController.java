@@ -1,11 +1,11 @@
 package sa.cheko.restaurant.restaurant.controller;
 
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sa.cheko.restaurant.restaurant.dto.RestaurantMapDto;
 import sa.cheko.restaurant.restaurant.service.RestaurantService;
+import sa.cheko.restaurant.common.dto.ChekoApiResponse;
 
 import java.util.List;
 
@@ -16,15 +16,15 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
-    // ✅ GET /api/restaurants — returns all restaurant locations with marker info
     @GetMapping
-    public List<RestaurantMapDto> getAllRestaurants() {
-        return restaurantService.getAllRestaurants();
+    public ResponseEntity<ChekoApiResponse<List<RestaurantMapDto>>> getAllRestaurants() {
+        List<RestaurantMapDto> restaurants = restaurantService.getAllRestaurants();
+        return ResponseEntity.ok(ChekoApiResponse.success(restaurants));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RestaurantMapDto> getRestaurantById(@PathVariable Long id) {
+    public ResponseEntity<ChekoApiResponse<RestaurantMapDto>> getRestaurantById(@PathVariable Long id) {
         RestaurantMapDto restaurant = restaurantService.getRestaurantById(id);
-        return ResponseEntity.ok(restaurant);
+        return ResponseEntity.ok(ChekoApiResponse.success(restaurant));
     }
 }

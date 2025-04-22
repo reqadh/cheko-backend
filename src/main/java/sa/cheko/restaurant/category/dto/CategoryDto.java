@@ -10,5 +10,7 @@ import lombok.*;
 public class CategoryDto {
     private Integer id;
     private String name;
+    private String logoUrl;
     private int itemCount;
+    
 }

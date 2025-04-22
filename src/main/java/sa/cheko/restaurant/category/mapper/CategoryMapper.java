@@ -9,6 +9,8 @@ public class CategoryMapper {
         return CategoryDto.builder()
                 .id(category.getId())
                 .name(category.getName())
+                .logoUrl(category.getLogoUrl())
+                .itemCount(category.getItemCount())
                 .build();
     }
 }

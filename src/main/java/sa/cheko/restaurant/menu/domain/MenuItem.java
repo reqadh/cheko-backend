@@ -24,6 +24,9 @@ public class MenuItem {
     private int calories;
     private double price;
 
+    @Column(name = "best_sale")
+    private Boolean bestSale = false;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
